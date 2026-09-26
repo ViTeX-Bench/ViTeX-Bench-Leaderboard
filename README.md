@@ -6,7 +6,7 @@ Public leaderboard for [ViTeX-Bench](https://vitex-bench.github.io/), a benchmar
 
 ## Submitting
 
-1. Run the [evaluation code](https://huggingface.co/ViTeX-Bench/ViTeX-Bench) on the frozen 157-video evaluation split of [ViTeX-Dataset](https://huggingface.co/datasets/ViTeX-Bench/ViTeX-Dataset). It writes an `eval.json`.
+1. Run the [evaluation code](https://github.com/ViTeX-Bench/ViTeX-Bench) on the frozen 157-video evaluation split of [ViTeX-Dataset](https://huggingface.co/datasets/ViTeX-Bench/ViTeX-Dataset). It writes an `eval.json`.
 2. [Open a submission issue](https://github.com/ViTeX-Bench/ViTeX-Bench-Leaderboard/issues/new?template=submission.yml) and attach the `eval.json`.
 3. After review, a maintainer adds the entry and closes the issue.
 
