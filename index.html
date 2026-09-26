@@ -4,60 +4,171 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ViTeX-Bench Leaderboard</title>
-<style>
-  body { font-family: system-ui, sans-serif; margin: 1.5rem; }
-  table { border-collapse: collapse; font-size: 0.9rem; }
-  th, td { border: 1px solid #ccc; padding: 4px 8px; text-align: right; white-space: nowrap; }
-  th { cursor: pointer; background: #f3f3f3; }
-  td.left, th.left { text-align: left; }
-  th.primary { background: #dde8f5; }
-  tr.ref td { color: #777; font-style: italic; }
-  .wrap { overflow-x: auto; }
-</style>
+<meta name="description" content="Public leaderboard for ViTeX-Bench, a benchmark for video scene text editing. Methods are compared on text correctness, temporal quality, and edit locality, with a Pareto set instead of an aggregate score.">
+<meta property="og:title" content="ViTeX-Bench Leaderboard">
+<meta property="og:description" content="Video scene text editors compared on text correctness, temporal quality, and edit locality. No aggregate score.">
+<meta property="og:url" content="https://vitex-bench.github.io/ViTeX-Bench-Leaderboard/">
+<meta property="og:image" content="https://vitex-bench.github.io/static/images/vitex_icon.png">
+<meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="https://vitex-bench.github.io/static/images/favicon.ico">
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('vtx-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<link rel="preload" href="assets/fonts/atkinson-hyperlegible-next-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<h1>ViTeX-Bench Leaderboard</h1>
-<p>
-  <a href="https://vitex-bench.github.io/">Project page</a> ·
-  <a href="https://github.com/ViTeX-Bench/ViTeX-Bench-Leaderboard/issues/new?template=submission.yml">Submit a result</a> ·
-  <a href="data/submissions.jsonl">Raw data</a>
-</p>
-<p>
-  Mean scores on the frozen 157-video evaluation split. Primary metrics (shaded headers):
-  SeqAcc (text correctness), Warp<sub>c</sub> (temporal quality), DreamSim<sub>loc</sub> (edit locality).
-  <b>Pareto</b> marks raw editors that no other raw editor matches or beats on all three primaries.
-  No aggregate score is used; click a header to sort.
-  <br>† VideoPainter's Flicker/Warp values come from interpolated frames and are excluded from temporal comparisons.
-  Post-processed (Composite) rows and the Source reference are not ranked.
-</p>
-<div class="wrap">
-<table id="lb">
-  <thead><tr>
-    <th class="left" data-k="method">Method</th>
-    <th class="left" data-k="family">Family</th>
-    <th data-k="pareto">Pareto</th>
-    <th class="primary" data-k="SeqAcc" data-dir="up">SeqAcc ↑</th>
-    <th data-k="CharAcc" data-dir="up">CharAcc ↑</th>
-    <th data-k="TTS" data-dir="up">TTS ↑</th>
-    <th data-k="Flicker_full" data-dir="down">Flicker<sub>f</sub> ↓</th>
-    <th data-k="Flicker_crop" data-dir="down">Flicker<sub>c</sub> ↓</th>
-    <th data-k="Warp_full" data-dir="down">Warp<sub>f</sub> ↓</th>
-    <th class="primary" data-k="Warp_crop" data-dir="down">Warp<sub>c</sub> ↓</th>
-    <th data-k="MUSIQ_full" data-dir="up">MUSIQ<sub>f</sub> ↑</th>
-    <th data-k="MUSIQ_crop" data-dir="up">MUSIQ<sub>c</sub> ↑</th>
-    <th data-k="PSNR_loc" data-dir="up">PSNR<sub>loc</sub> ↑</th>
-    <th data-k="SSIM_loc" data-dir="up">SSIM<sub>loc</sub> ↑</th>
-    <th data-k="LPIPS_loc" data-dir="down">LPIPS<sub>loc</sub> ↓</th>
-    <th class="primary" data-k="DreamSim_loc" data-dir="down">DreamSim<sub>loc</sub> ↓</th>
-  </tr></thead>
-  <tbody></tbody>
-</table>
-</div>
+<a class="skip" href="#board">Skip to the leaderboard</a>
+
+<header class="top">
+  <div class="top__inner">
+    <a class="brand" href="./">ViTeX-Bench <span>Leaderboard</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#board">Leaderboard</a>
+      <a href="#protocol">Protocol</a>
+      <a href="#submit">Submit</a>
+    </nav>
+    <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme">
+      <svg class="icon icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>
+      <svg class="icon icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.6A8 8 0 0 1 9.4 4.5a8 8 0 1 0 10.1 10.1Z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="space" aria-labelledby="title">
+    <div class="space__intro">
+      <h1 id="title">ViTeX-Bench Leaderboard</h1>
+      <p>Video scene text editors on three axes: text correctness, temporal quality, and edit locality. There is no aggregate score.</p>
+    </div>
+
+    <div class="stage" id="stage">
+      <canvas id="sky" role="img" aria-label="Three-dimensional chart of methods. The same data is in the leaderboard table below."></canvas>
+      <p class="stage__status" id="status">Loading…</p>
+
+      <div class="views" role="group" aria-label="View">
+        <button type="button" data-view="3d" aria-pressed="true">3D</button>
+        <button type="button" data-view="ct" aria-pressed="false">Correctness × Temporal</button>
+        <button type="button" data-view="cl" aria-pressed="false">Correctness × Locality</button>
+        <button type="button" data-view="tl" aria-pressed="false">Temporal × Locality</button>
+      </div>
+
+      <ul class="legend" aria-label="Legend">
+        <li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" class="lg-ring"/><circle cx="8" cy="8" r="3.4" class="lg-fill"/></svg>Pareto front</li>
+        <li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.6" class="lg-dim"/></svg>Other editor</li>
+        <li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="4" class="lg-ring"/></svg>Reference</li>
+        <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1v14M1 8h14" class="lg-ring"/><circle cx="8" cy="8" r="2.6" class="lg-fill"/></svg>Ideal</li>
+      </ul>
+
+      <p class="stage__note" id="note">Drag to rotate. Select a star for details.</p>
+      <aside class="card" id="card" aria-live="polite" hidden></aside>
+    </div>
+  </section>
+
+  <section class="leaders" aria-label="Axis leaders">
+    <div class="wrap leaders__grid" id="leaders"></div>
+  </section>
+
+  <section class="section" id="board" aria-labelledby="board-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="board-title">Leaderboard</h2>
+        <p>Mean scores on the frozen 157-video evaluation split. By default, methods are grouped by Pareto front; within a front the order is random, because its members are equally good. Sort by any metric to rank on that metric alone.</p>
+      </div>
+      <div class="controls">
+        <div class="tabs" role="radiogroup" aria-label="Metric group">
+          <button type="button" role="radio" data-group="primary" aria-checked="true">Primary metrics</button>
+          <button type="button" role="radio" data-group="correctness" aria-checked="false">Text correctness</button>
+          <button type="button" role="radio" data-group="temporal" aria-checked="false">Temporal quality</button>
+          <button type="button" role="radio" data-group="locality" aria-checked="false">Edit locality</button>
+        </div>
+        <div class="controls__right">
+          <label class="select">
+            <span>Sort by</span>
+            <select id="sort-sel"><option value="front">Pareto front</option></select>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+          </label>
+          <button class="order" type="button" id="order-btn" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M4.5 15.5 8 19l3.5-3.5M16 19V5M12.5 8.5 16 5l3.5 3.5"/></svg><span>Best first</span></button>
+          <label class="check">
+            <input type="checkbox" id="show-ref" checked>
+            <span class="check__box" aria-hidden="true"></span>
+            Show references
+          </label>
+        </div>
+      </div>
+      <div class="table-wrap" id="table-wrap">
+        <table class="lb" id="lb">
+          <thead id="lb-head"></thead>
+          <tbody id="lb-body"><tr><td class="lb__empty">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <ol class="mlist" id="mlist" hidden aria-label="Leaderboard"></ol>
+      <p class="footnote">Bold marks the best ranked value in a column. † Flicker and Warp come from interpolated frames and are not compared.</p>
+    </div>
+  </section>
+
+  <section class="section" id="protocol" aria-labelledby="protocol-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="protocol-title">How it is scored</h2>
+        <p>Thirteen metrics on three axes. One primary metric per axis; the chart uses those three.</p>
+      </div>
+      <div class="axes" id="axes"></div>
+      <div class="notes">
+        <p><strong>Pareto front.</strong> A raw editor is on the front unless another raw editor is at least as good on all three primary metrics and better on one. Setting the front aside and repeating gives front 2, front 3, and so on. It is computed in three dimensions, so a front member can look dominated in a two-axis view.</p>
+        <p><strong>Not ranked.</strong> Post-processed outputs and the Source video are shown for reference only. Methods marked † are left out of temporal comparisons.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="submit" aria-labelledby="submit-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="submit-title">Submit a result</h2>
+        <p>Anyone can submit. A maintainer reviews each result before it appears here.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="steps__n">1</span><p>Run the <a href="https://github.com/ViTeX-Bench/ViTeX-Bench">evaluation code</a> on the frozen split of <a href="https://huggingface.co/datasets/ViTeX-Bench/ViTeX-Dataset">ViTeX-Dataset</a>. It writes <code>eval.json</code>.</p></li>
+        <li><span class="steps__n">2</span><p>Open a submission issue with <code>eval.json</code> attached. Note any post-processing or frame interpolation.</p></li>
+        <li><span class="steps__n">3</span><p>After review, your method appears in the chart and the table.</p></li>
+      </ol>
+      <a class="btn" href="https://github.com/ViTeX-Bench/ViTeX-Bench-Leaderboard/issues/new?template=submission.yml">Open a submission issue</a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <details class="cite">
+      <summary><svg class="icon disc" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/><path class="v" d="M12 6v12"/></svg>Cite ViTeX-Bench</summary>
+      <div class="cite__body">
+<pre id="bib"><code>@inproceedings{chen2026vitexbench,
+  title     = {ViTeX-Bench: Benchmarking High Fidelity Video Scene Text Editing},
+  author    = {Chen, Xinghao and Gao, Xiangbo and Yu, Jiongze and Wu, Yuheng and Tu, Zhengzhong},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Track on Evaluations and Datasets},
+  year      = {2026},
+  url       = {https://vitex-bench.github.io/}
+}</code></pre>
+        <button class="btn btn--ghost btn--sm" type="button" id="copy-bib">Copy BibTeX</button>
+      </div>
+    </details>
+    <ul class="foot__links">
+      <li><a href="https://vitex-bench.github.io/">Project page</a></li>
+      <li><a href="https://github.com/ViTeX-Bench/ViTeX-Bench">Evaluation code</a></li>
+      <li><a href="https://huggingface.co/datasets/ViTeX-Bench/ViTeX-Dataset">Dataset</a></li>
+      <li><a href="https://huggingface.co/ViTeX-Bench/ViTeX-Edit-14B">ViTeX-Edit-14B</a></li>
+      <li><a href="data/submissions.jsonl">Raw data</a></li>
+    </ul>
+  </div>
+</footer>
+
 <script src="leaderboard.js"></script>
-<script>
-  ViTeXLeaderboard.load('data/submissions.jsonl').then(function (rows) {
-    ViTeXLeaderboard.render(document.getElementById('lb'), rows);
-  });
-</script>
+<script src="assets/app.js"></script>
 </body>
 </html>

@@ -4,6 +4,8 @@ Public leaderboard for [ViTeX-Bench](https://vitex-bench.github.io/), a benchmar
 
 **View:** https://vitex-bench.github.io/ViTeX-Bench-Leaderboard/
 
+The site is static (no build step): `index.html`, `assets/site.css` and `assets/app.js` render a rotatable 3-D space of the three primary metrics (with face views for each pair of axes), the per-axis leaders, a sortable leaderboard of all 13 metrics, and the protocol. Fonts are self-hosted in `assets/fonts/`. Views are deep-linkable, e.g. `#view=cl&m=textctrl&sort=Warp_crop`. `leaderboard.js` loads `data/submissions.jsonl` and marks the Pareto set. Preview locally with `python3 -m http.server` and open http://localhost:8000/.
+
 ## Submitting
 
 1. Run the [evaluation code](https://github.com/ViTeX-Bench/ViTeX-Bench) on the frozen 157-video evaluation split of [ViTeX-Dataset](https://huggingface.co/datasets/ViTeX-Bench/ViTeX-Dataset). It writes an `eval.json`.
