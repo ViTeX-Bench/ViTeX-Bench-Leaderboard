@@ -11,15 +11,15 @@ colors:
   field-hairline-strong: "rgba(255, 255, 255, 0.22)"
   field-wash-hover: "rgba(255, 255, 255, 0.045)"
   field-wash-selected: "rgba(255, 255, 255, 0.075)"
-  desk-paper: "#FAFAFA"
-  desk-paper-raised: "#FFFFFF"
-  desk-ink: "#0A0A0A"
-  desk-ink-dim: "#4A4A4A"
-  desk-ink-faint: "#6A6A6A"
-  desk-hairline: "rgba(0, 0, 0, 0.09)"
-  desk-hairline-strong: "rgba(0, 0, 0, 0.2)"
-  desk-wash-hover: "rgba(0, 0, 0, 0.03)"
-  desk-wash-selected: "rgba(0, 0, 0, 0.055)"
+  desk-paper: "#E8E8E8"
+  desk-paper-raised: "#F0F0F0"
+  desk-ink: "#161616"
+  desk-ink-dim: "#404040"
+  desk-ink-faint: "#5C5C5C"
+  desk-hairline: "rgba(0, 0, 0, 0.1)"
+  desk-hairline-strong: "rgba(0, 0, 0, 0.22)"
+  desk-wash-hover: "rgba(0, 0, 0, 0.035)"
+  desk-wash-selected: "rgba(0, 0, 0, 0.06)"
 typography:
   display:
     fontFamily: "Atkinson Hyperlegible Next, ui-sans-serif, system-ui, sans-serif"
@@ -209,8 +209,8 @@ Two lightings of one monochrome object. Each theme uses a single foreground and 
 - **Starlight / Ink** (`field-starlight` / `desk-ink`): the only "accent". It is used for body text, stars, the active segment, the primary button fill, the inverted "Pareto front" pill, the mesh and the ideal star, the Pareto chips' ring, the focus outline and text selection. Because it is also the text colour, emphasis comes from inversion (a solid pill) or weight, not from colour.
 
 ### Neutral
-- **Deep Space / Paper** (`field-space` / `desk-paper`): the page and stage background. It is also used as the halo behind canvas labels and as the ring cut around track markers.
-- **Raised Space / White Sheet** (`field-space-raised` / `desk-paper-raised`): the selection card, mixed at 88% under a blur. This is the one raised surface.
+- **Deep Space / Paper** (`field-space` / `desk-paper`): the page and stage background. The Desk paper is a soft neutral grey, not white, so the light theme never glares. It is also used as the halo behind canvas labels and as the ring cut around track markers.
+- **Raised Space / Light Sheet** (`field-space-raised` / `desk-paper-raised`): the selection card, mixed at 88% under a blur. This is the one raised surface.
 - **Dim Starlight / Grey Ink** (`field-starlight-dim` / `desk-ink-dim`): secondary copy, nav links, inactive segments, metric keys and chips.
 - **Faint Starlight / Faint Ink** (`field-starlight-faint` / `desk-ink-faint`): tertiary metadata, ranks, sort headers at rest, axis ticks, label leaders, unranked rows. It meets AA against its own background in both themes.
 - **Hairline** (`*-hairline`): row rules, column dividers, section borders, and the chip border at rest.
