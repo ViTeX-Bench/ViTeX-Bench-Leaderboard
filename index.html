@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ViTeX-Bench Leaderboard</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 1.5rem; }
+  table { border-collapse: collapse; font-size: 0.9rem; }
+  th, td { border: 1px solid #ccc; padding: 4px 8px; text-align: right; white-space: nowrap; }
+  th { cursor: pointer; background: #f3f3f3; }
+  td.left, th.left { text-align: left; }
+  th.primary { background: #dde8f5; }
+  tr.ref td { color: #777; font-style: italic; }
+  .wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<h1>ViTeX-Bench Leaderboard</h1>
+<p>
+  <a href="https://vitex-bench.github.io/">Project page</a> ·
+  <a href="https://github.com/ViTeX-Bench/ViTeX-Bench-Leaderboard/issues/new?template=submission.yml">Submit a result</a> ·
+  <a href="data/submissions.jsonl">Raw data</a>
+</p>
+<p>
+  Mean scores on the frozen 157-video evaluation split. Primary metrics (shaded headers):
+  SeqAcc (text correctness), Warp<sub>c</sub> (temporal quality), DreamSim<sub>loc</sub> (edit locality).
+  <b>Pareto</b> marks raw editors that no other raw editor matches or beats on all three primaries.
+  No aggregate score is used; click a header to sort.
+  <br>† VideoPainter's Flicker/Warp values come from interpolated frames and are excluded from temporal comparisons.
+  Post-processed (Composite) rows and the Source reference are not ranked.
+</p>
+<div class="wrap">
+<table id="lb">
+  <thead><tr>
+    <th class="left" data-k="method">Method</th>
+    <th class="left" data-k="family">Family</th>
+    <th data-k="pareto">Pareto</th>
+    <th class="primary" data-k="SeqAcc" data-dir="up">SeqAcc ↑</th>
+    <th data-k="CharAcc" data-dir="up">CharAcc ↑</th>
+    <th data-k="TTS" data-dir="up">TTS ↑</th>
+    <th data-k="Flicker_full" data-dir="down">Flicker<sub>f</sub> ↓</th>
+    <th data-k="Flicker_crop" data-dir="down">Flicker<sub>c</sub> ↓</th>
+    <th data-k="Warp_full" data-dir="down">Warp<sub>f</sub> ↓</th>
+    <th class="primary" data-k="Warp_crop" data-dir="down">Warp<sub>c</sub> ↓</th>
+    <th data-k="MUSIQ_full" data-dir="up">MUSIQ<sub>f</sub> ↑</th>
+    <th data-k="MUSIQ_crop" data-dir="up">MUSIQ<sub>c</sub> ↑</th>
+    <th data-k="PSNR_loc" data-dir="up">PSNR<sub>loc</sub> ↑</th>
+    <th data-k="SSIM_loc" data-dir="up">SSIM<sub>loc</sub> ↑</th>
+    <th data-k="LPIPS_loc" data-dir="down">LPIPS<sub>loc</sub> ↓</th>
+    <th class="primary" data-k="DreamSim_loc" data-dir="down">DreamSim<sub>loc</sub> ↓</th>
+  </tr></thead>
+  <tbody></tbody>
+</table>
+</div>
+<script src="leaderboard.js"></script>
+<script>
+  ViTeXLeaderboard.load('data/submissions.jsonl').then(function (rows) {
+    ViTeXLeaderboard.render(document.getElementById('lb'), rows);
+  });
+</script>
+</body>
+</html>

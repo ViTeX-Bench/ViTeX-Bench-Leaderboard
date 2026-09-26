@@ -1,0 +1,52 @@
+name: Leaderboard submission
+description: Submit ViTeX-Bench results for a method
+title: "[Submission] "
+labels: ["submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Run the official evaluation code on the frozen 157-video evaluation split and attach the resulting `eval.json`.
+        A maintainer will review the submission and add it to the leaderboard.
+  - type: input
+    id: method
+    attributes:
+      label: Method name
+    validations:
+      required: true
+  - type: dropdown
+    id: family
+    attributes:
+      label: Method family
+      options:
+        - A — per-frame image editing
+        - B — first-frame editing + propagation
+        - C — mask-conditioned video inpainting
+        - D — instruction-guided video editing
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: organization
+    attributes:
+      label: Authors / organization
+  - type: input
+    id: paper
+    attributes:
+      label: Paper URL
+  - type: input
+    id: code
+    attributes:
+      label: Code or model URL
+  - type: textarea
+    id: eval
+    attributes:
+      label: eval.json
+      description: Drag and drop the eval.json file here (or paste its contents).
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Post-processing, frame interpolation, resolution changes, or anything else that affects comparability.
