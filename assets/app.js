@@ -165,7 +165,7 @@
       var n = parseInt(m[1], 16);
       return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
     }
-    colors = { fg: rgb('--fg'), fg3: rgb('--fg-3'), bg: rgb('--bg'), glow: parseFloat(cs.getPropertyValue('--glow')) || 0 };
+    colors = { fg: rgb('--fg'), fg3: rgb('--fg-3'), bg: rgb('--bg'), acc: rgb('--accent'), glow: parseFloat(cs.getPropertyValue('--glow')) || 0 };
   }
   function rgba(c, a) { return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
 
@@ -365,11 +365,11 @@
         .sort(function (a, b) { return a.z - b.z; })
         .forEach(function (t) {
           ctx.beginPath(); ctx.moveTo(t.q[0].x, t.q[0].y); ctx.lineTo(t.q[1].x, t.q[1].y); ctx.lineTo(t.q[2].x, t.q[2].y); ctx.closePath();
-          ctx.fillStyle = rgba(fg, (colors.glow ? 0.07 : 0.05) * meshA); ctx.fill();
-          ctx.strokeStyle = rgba(fg, (colors.glow ? 0.42 : 0.5) * meshA); ctx.lineWidth = 1; ctx.stroke();
+          ctx.fillStyle = rgba(colors.acc, (colors.glow ? 0.12 : 0.1) * meshA); ctx.fill();
+          ctx.strokeStyle = rgba(colors.acc, (colors.glow ? 0.6 : 0.7) * meshA); ctx.lineWidth = 1; ctx.stroke();
         });
     } else if (meshA > 0 && mesh.pts.length === 2) {
-      line(P, mesh.pts[0], mesh.pts[1], rgba(fg, 0.42 * meshA), 1);
+      line(P, mesh.pts[0], mesh.pts[1], rgba(colors.acc, 0.6 * meshA), 1);
     }
 
     // The ideal corner: a large bright star with diffraction spikes.
@@ -415,11 +415,11 @@
       } else if (r.pareto) {
         if (colors.glow) {
           var g = ctx.createRadialGradient(q.x, q.y, 0, q.x, q.y, 20 * k);
-          g.addColorStop(0, rgba(fg, 0.34 * a)); g.addColorStop(1, rgba(fg, 0));
+          g.addColorStop(0, rgba(colors.acc, 0.45 * a)); g.addColorStop(1, rgba(colors.acc, 0));
           ctx.fillStyle = g; ctx.beginPath(); ctx.arc(q.x, q.y, 20 * k, 0, 6.2832); ctx.fill();
         }
-        ctx.beginPath(); ctx.arc(q.x, q.y, 4.4 * k, 0, 6.2832); ctx.fillStyle = rgba(fg, a); ctx.fill();
-        ctx.beginPath(); ctx.arc(q.x, q.y, 8.5 * k, 0, 6.2832); ctx.strokeStyle = rgba(fg, 0.45 * a); ctx.lineWidth = 1; ctx.stroke();
+        ctx.beginPath(); ctx.arc(q.x, q.y, 4.4 * k, 0, 6.2832); ctx.fillStyle = rgba(colors.acc, Math.min(1, a + 0.15)); ctx.fill();
+        ctx.beginPath(); ctx.arc(q.x, q.y, 8.5 * k, 0, 6.2832); ctx.strokeStyle = rgba(colors.acc, 0.6 * a); ctx.lineWidth = 1; ctx.stroke();
       } else {
         ctx.beginPath(); ctx.arc(q.x, q.y, 2.8 * k * (is3d ? 0.7 + 0.3 * a : 1), 0, 6.2832); ctx.fillStyle = rgba(fg, 0.62 * a); ctx.fill();
       }
@@ -626,7 +626,7 @@
         '<span class="leader__val">' + fmt(lead, k) + '</span></div></div>';
     }).join('');
     var members = rows.filter(function (r) { return r.layer === 1; }).sort(byShuffle);
-    html += '<div class="leader"><p class="leader__axis">Pareto front <span>' + members.length + '</span></p><ul class="leader__members">' +
+    html += '<div class="leader"><p class="leader__axis is-front">Pareto front <span>' + members.length + '</span></p><ul class="leader__members">' +
       members.map(function (r) { return '<li><button type="button" data-sel="' + esc(r.id) + '">' + esc(r.method) + '</button></li>'; }).join('') + '</ul></div>';
     var g = $('leaders');
     g.innerHTML = html;
@@ -653,7 +653,7 @@
   var CHEV = '<svg class="chev icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
   function symbol(r) {
     if (!isRanked(r)) return '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="4" class="lg-ring"/></svg>';
-    if (r.pareto) return '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" class="lg-ring"/><circle cx="8" cy="8" r="3.4" class="lg-fill"/></svg>';
+    if (r.pareto) return '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" class="lg-acc-ring"/><circle cx="8" cy="8" r="3.4" class="lg-acc"/></svg>';
     return '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.6" class="lg-dim"/></svg>';
   }
   function frontPill(r) {

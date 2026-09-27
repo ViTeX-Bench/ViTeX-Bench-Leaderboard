@@ -50,7 +50,7 @@ ViTeX-Bench measures text correctness with OCR (does the edited region read as t
 - Existing assets live in the homepage repo: `vitex_icon.png` and the favicon, at `https://vitex-bench.github.io/static/images/`.
 - The voice is scholarly and precise. It states what is measured and what is not, and never overclaims.
 - Visual commitments the user confirmed on 2026-09-26:
-  - Monochrome black and white only, with no blue or red palette.
+  - A black-and-white base plus one lavender accent, taken from the ViTeX logo and shared with the project page (#A99DF6 dark, #5242C2 light). The accent marks the Pareto front and a few interaction details. There is still no blue or red palette and no other hue. (Updated by the user on 2026-09-27 to unify the leaderboard with the project page.)
   - A minimal, airy layout inspired by stars in a dark universe, with little text per screen.
   - Clear, easy-to-read sans-serif type only. No handwritten-looking or script-like italic faces.
   - The three primary axes shown together in one rotatable 3-D space.
