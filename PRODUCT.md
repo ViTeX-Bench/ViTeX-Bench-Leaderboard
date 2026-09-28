@@ -26,7 +26,7 @@ ViTeX-Bench measures text correctness with OCR (does the edited region read as t
 
 - Hosted as a static site on GitHub Pages at `https://vitex-bench.github.io/ViTeX-Bench-Leaderboard/`. The project homepage is at `https://vitex-bench.github.io/`.
 - Data lives in `data/submissions.jsonl`, with one JSON object per method. The fields are `method`, `kind` (`editor` | `postprocessed` | `reference`), `family`, `organization`, `paper_url`, `code_url`, `temporal_comparable`, `submitter`, `added`, the 13 metric means and `n_clips`.
-- Submission flow: run the [evaluation code](https://github.com/ViTeX-Bench/ViTeX-Bench) on the frozen split of [ViTeX-Dataset](https://huggingface.co/datasets/ViTeX-Bench/ViTeX-Dataset), then open a GitHub issue using `.github/ISSUE_TEMPLATE/submission.yml` and attach `eval.json`. A maintainer runs `scripts/add_submission.py` and pushes.
+- Submission flow: run the [evaluation code](https://github.com/taco-group/ViTeX-Bench) on the frozen split of [ViTeX-Dataset](https://huggingface.co/datasets/ViTeX-Bench/ViTeX-Dataset), then open a GitHub issue using `.github/ISSUE_TEMPLATE/submission.yml` and attach `eval.json`. A maintainer runs `scripts/add_submission.py` and pushes.
 - Method families: A, per-frame image editing; B, first-frame editing + propagation; C, mask-conditioned video inpainting; D, instruction-guided video editing; plus the reference editor and Other.
 
 ## Capabilities and Constraints
