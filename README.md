@@ -1,6 +1,6 @@
 # ViTeX-Bench Leaderboard
 
-Public leaderboard for [ViTeX-Bench](https://vitex-bench.github.io/), a benchmark for video scene text editing.
+Public leaderboard for [ViTeX-Bench](https://vitex-bench.github.io/) ([paper](https://arxiv.org/abs/2609.40356)), a benchmark for video scene text editing.
 
 **View:** https://vitex-bench.github.io/ViTeX-Bench-Leaderboard/
 

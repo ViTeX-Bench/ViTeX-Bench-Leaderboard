@@ -264,7 +264,7 @@ The content column is 1200px wide, with a fluid gutter of `clamp(20px, 5vw, 56px
 
 The leaderboard shows one metric group at a time (Primary metrics, Text correctness, Temporal quality, Edit locality), so the table always fits its column: 20px side insets on the first and last cells, no sticky columns and no sideways scrolling at any width. Controls sit above it in one row: metric-group tabs on the left; sort select, order toggle and references checkbox on the right.
 
-Breakpoints: at 1000px the leaders go to 2×2 and the expanded row stacks. At 960px the table is replaced by the compact list, the controls stack, and the metric-group tabs become a 2-column grid. At 860px the stage goes into document flow: canvas `clamp(340px, 54svh, 520px)`, then the view switch, note, legend and card stack beneath it, and the protocol, notes and steps collapse to one column. At 600px the view switch becomes a full-width 2-column grid, the leaders go to one column, and the nav keeps only the Submit link.
+Breakpoints: at 1000px the leaders go to 2×2, the expanded row stacks, and the header's Paper link hides. At 960px the table is replaced by the compact list, the controls stack, and the metric-group tabs become a 2-column grid. At 860px the stage goes into document flow: canvas `clamp(340px, 54svh, 520px)`, then the view switch, note, legend and card stack beneath it, and the protocol, notes and steps collapse to one column. At 600px the view switch becomes a full-width 2-column grid, the leaders go to one column, and the nav keeps only the Submit link.
 
 ## Elevation & Depth
 
@@ -323,7 +323,7 @@ Solid or outlined pills, calm and direct.
 - An accent pill (accent fill, accent-ink text and symbol) reading "Pareto front", badge type, 4px × 10px × 4px × 7px, with an 11px ring-and-core symbol. It marks front membership only; it is never a rank or a "#1".
 
 ### Navigation
-- **Header:** sticky, 60px, background mixed at 82% with 12px blur and a bottom hairline. The wordmark is 600 with a 400 faint "Leaderboard" suffix. Links are 14px dim and turn foreground on hover. After the section nav, a hairline-separated "Project page ↗" link (14px dim, 14px arrow icon) leads to the project page, mirroring that page's "Leaderboard ↗" link. The theme toggle is a 36px circular icon button. Below 600px the nav keeps only Submit plus the Project page link, and the wordmark suffix drops.
+- **Header:** sticky, 60px, background mixed at 82% with 12px blur and a bottom hairline. The wordmark is 600 with a 400 faint "Leaderboard" suffix. Links are 14px dim and turn foreground on hover. After the section nav, a hairline-separated "Project page ↗" link (14px dim, 14px arrow icon) leads to the project page, mirroring that page's "Leaderboard ↗" link. A "Paper ↗" link to the arXiv paper follows it in the same style, 20px away and without a hairline of its own; it is hidden at 1000px and below, where the footer still carries it. The theme toggle is a 36px circular icon button. Below 600px the nav keeps only Submit plus the Project page link, and the wordmark suffix drops.
 
 ### Star Space (signature)
 The system is a hand-drawn canvas projection of the three primary metrics into a unit cube. Nothing is drawn outside the cube except the axes, their labels and the ideal star. It has three star symbols:

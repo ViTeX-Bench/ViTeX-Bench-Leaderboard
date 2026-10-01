@@ -99,6 +99,7 @@ html { scrollbar-color: var(--line-2) transparent; }
 .top__pp { display: inline-flex; align-items: center; gap: 4px; padding-left: 26px; border-left: 1px solid var(--line); height: 22px; font-size: 14px; color: var(--fg-2); text-decoration: none; transition: color 200ms; white-space: nowrap; }
 .top__pp:hover { color: var(--fg); }
 .top__pp .icon { width: 14px; height: 14px; }
+.top__paper { padding-left: 0; border-left: 0; margin-left: -12px; }
 .icon-btn { width: 36px; height: 36px; display: grid; place-items: center; background: none; border: 1px solid var(--line-2); border-radius: 50%; color: var(--fg-2); cursor: pointer; transition: color 200ms, border-color 200ms; }
 .icon-btn:hover { color: var(--fg); border-color: var(--fg-3); }
 .icon-btn .icon { width: 16px; height: 16px; }
@@ -357,6 +358,7 @@ th[aria-sort="ascending"] .sort .caret { transform: rotate(180deg); }
   .leader:nth-child(3) { padding-left: 0; border-left: 0; }
   .leader:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
   .vec { grid-template-columns: 1fr; }
+  .top__paper { display: none; }
 }
 @media (max-width: 860px) {
   .space { height: auto; overflow: visible; }
