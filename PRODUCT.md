@@ -59,7 +59,7 @@ ViTeX-Bench measures text correctness with OCR (does the edited region read as t
 ## Evidence on Hand
 
 - `data/submissions.jsonl` holds 11 real rows: 9 raw editors, 1 post-processed (ViTeX-Edit-14B Composite) and 1 reference (Source video).
-- The paper is public on arXiv at `https://arxiv.org/abs/2609.40356` (the NeurIPS-template version, posted 2026-09-30). Its headline finding is that across eight baselines from four families, accurate text, temporal stability and scene preservation remain hard to achieve together. ViTeX-Edit-14B has the highest CharAcc (0.688) among video-native editors and the lowest comparable text-crop Warp among raw editor outputs.
+- The paper is public on arXiv at `https://arxiv.org/abs/2609.40356` (the NeurIPS-template version, posted 2026-09-30). Its headline finding is that across eight baselines from four families, accurate text, temporal stability and scene preservation remain hard to achieve together. ViTeX-Edit-14B has the highest CharAcc (0.714) among video-native editors, with low temporal error.
 - Dataset facts: 387 real-world 720p videos (1280×720, 120 frames, 24 fps), split into 230 paired training videos and 157 frozen evaluation videos. The evaluation split covers four scripts: Latin, Chinese, Japanese, and Cyrillic.
 - Absent: confidence intervals per row, per-clip results on the site, submission dates beyond `added`, and user submissions so far (all rows are `submitter: admin`). None of these may be fabricated.
 
